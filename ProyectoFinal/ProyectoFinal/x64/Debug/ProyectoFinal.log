@@ -1,0 +1,2 @@
+﻿  ProyectoFinal.cpp
+C:\Users\lunab\Documents\Repositorio\314093790_Proyecto_Gpo08\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(5,10): fatal error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
