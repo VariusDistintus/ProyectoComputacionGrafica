@@ -31,6 +31,9 @@ void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
 void animacion();
 void animacion2();
+void animacion3();
+void animacion4();
+void animacion5();
 
 
 // Window dimensions
@@ -45,12 +48,25 @@ bool keys[1024];
 bool firstMouse = true;
 // Light attributes
 glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
+
+
+
 glm::vec3 PosIni(4.5f, 0.66f, -3.5f);
-glm::vec3 PosIni2(-3.0f, 0.3f, 1.5f);
+//glm::vec3 PosIni2(30.0f, 1.3f, -30.5f);
+glm::vec3 PosIni2(0.0f, 2.1f, 17.5f);
+glm::vec3 PosIni3(-25.5f, 30.66f, -65.5f);
+glm::vec3 PosIni4(40.0f, 5.85f, -94.0f);
+glm::vec3 PosIni5(-26.0f, 8.45f, -70.0f);
+
 bool active;
 float rot = 0.0f;
 float range = 0.0f;
 float range2 = 0.0f;
+
+float range3 = 0.0f;
+float rot3 = 0.0f;
+
+float rot4 = 0.0f;
 
 //Luz
 GLfloat direccionx = 0.0f;
@@ -91,6 +107,14 @@ GLfloat lastFrame = 0.0f;  	// Time of last frame
 GLfloat deltaTime2 = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame2 = 0.0f;  // Time of last frame
 
+// Deltatime
+GLfloat deltaTime3 = 0.0f;	// Time between current frame and last frame
+GLfloat lastFrame3 = 0.0f;  // Time of last frame
+
+// Deltatime
+GLfloat deltaTime4 = 0.0f;	// Time between current frame and last frame
+GLfloat lastFrame4 = 0.0f;  // Time of last frame
+
 // Keyframes
 float posX = PosIni.x, posY = PosIni.y, posZ = PosIni.z, rotRodIzq = 0, rotIzq2 = 0;
 float rotRodDer = 0, rotDer2 = 0, rotBraDer = 0, rotBraIzq = 0;
@@ -98,6 +122,15 @@ float rotRodDer = 0, rotDer2 = 0, rotBraDer = 0, rotBraIzq = 0;
 //Para seguna Animacion
 float posX2 = PosIni2.x, posY2 = PosIni2.y, posZ2 = PosIni2.z, rot2RodIzq = 0, rot2Izq2 = 0;
 float rot2RodDer = 0, rot2Der2 = 0, rot2BraDer = 0, rot2BraIzq = 0;
+
+//Para Tercerma Animacion
+float posX3 = PosIni3.x, posY3 = PosIni3.y, posZ3 = PosIni3.z, rot3BraDer = 0, rot3BraIzq = 0, rotCuerpo3 = 0;
+
+//Para Cuarta Animacion
+float posX4 = PosIni4.x, posY4 = PosIni4.y, posZ4 = PosIni4.z, rot4BraDer = 0, rot4BraIzq = 0, rot4RodIzq = 0, rot4RodDer = 0;
+
+//Para Quinta Animacion
+float posX5 = PosIni5.x, posY5 = PosIni5.y, posZ5 = PosIni5.z,rot5RodIzq = 0, rot5RodDer = 0, rot5RodIzq2 = 0, rot5RodDer2 = 0, rot5Cabeza = 0, rot5Mandibula = 0;
 
 
 #define MAX_FRAMES 9
@@ -158,15 +191,105 @@ typedef struct _frame2
 	float rot2Inc6;
 }FRAME2;
 
+int i_max_steps3 = 190;
+int i_curr_steps3 = 0;
+typedef struct _frame3
+{
+	//Variables para GUARDAR Key Frames
+	float posX3;		//Variable para PosicionX
+	float posY3;		//Variable para PosicionY
+	float posZ3;		//Variable para PosicionZ
+	float incX3;		//Variable para IncrementoX
+	float incY3;		//Variable para IncrementoY
+	float incZ3;		//Variable para IncrementoZ
+	float rot3BraDer;
+	float rot3BraIzq;
+	float rot3Cuerpo;
+	float rotInc1;
+	float rotInc2;
+	float rotInc3;
+
+}FRAME3;
+
+
+int i_max_steps4 = 190;
+int i_curr_steps4 = 0;
+typedef struct _frame4
+{
+	//Variables para GUARDAR Key Frames
+	float posX4;		//Variable para PosicionX
+	float posY4;		//Variable para PosicionY
+	float posZ4;		//Variable para PosicionZ
+	float incX4;		//Variable para IncrementoX
+	float incY4;		//Variable para IncrementoY
+	float incZ4;		//Variable para IncrementoZ
+	
+	float rotRodIzq;
+	float rotRodDer;
+	float rotBraDer;
+	float rotBraIzq;
+
+	float rotInc1;
+	float rotInc2;
+	float rotInc3;
+	float rotInc4;	
+
+}FRAME4;
+
+int i_max_steps5 = 190;
+int i_curr_steps5 = 0;
+
+typedef struct _frame5
+{
+	//Variables para GUARDAR Key Frames
+	float posX5;		//Variable para PosicionX
+	float posY5;		//Variable para PosicionY
+	float posZ5;		//Variable para PosicionZ
+	float incX5;		//Variable para IncrementoX
+	float incY5;		//Variable para IncrementoY
+	float incZ5;		//Variable para IncrementoZ
+	
+	float rot5RodIzq;
+	float rot5RodIzq2;
+	float rot5RodDer;
+	float rot5RodDer2;
+	float rot5Cabeza;
+	float rot5Mandibula;
+
+	float rotInc1;
+	float rotInc2;
+	float rotInc3;
+	float rotInc4;
+	float rotInc5;
+	float rotInc6;
+
+}FRAME5;
+
+
 FRAME KeyFrame[MAX_FRAMES];
 int FrameIndex = 6;			//introducir datos
 bool play = false;
 int playIndex = 0;
 
 FRAME2 KeyFrame2[MAX_FRAMES];
-int FrameIndex2 = 6;			//introducir datos
+int FrameIndex2 = 3;			//introducir datos
 bool play2 = false;
 int playIndex2 = 0;
+
+FRAME3 KeyFrame3[MAX_FRAMES];
+int FrameIndex3 = 9;			//introducir datos
+bool play3 = false;
+int playIndex3 = 0;
+
+FRAME4 KeyFrame4[MAX_FRAMES];
+int FrameIndex4 = 9;			//introducir datos
+bool play4 = false;
+int playIndex4 = 0;
+
+FRAME5 KeyFrame5[MAX_FRAMES];
+int FrameIndex5 = 7;			//introducir datos
+bool play5 = false;
+int playIndex5 = 0;
 
 
 
@@ -232,28 +355,6 @@ glm::vec3 Light3 = glm::vec3(0);
 glm::vec3 Light4 = glm::vec3(0);
 
 
-
-void saveFrame(void)
-{
-
-	printf("frameindex %d\n", FrameIndex);
-
-	KeyFrame[FrameIndex].posX = posX;
-	KeyFrame[FrameIndex].posY = posY;
-	KeyFrame[FrameIndex].posZ = posZ;
-
-	KeyFrame[FrameIndex].rotRodIzq = rotRodIzq;
-	KeyFrame[FrameIndex].rotIzq2 = rotIzq2;
-
-	KeyFrame[FrameIndex].rotRodDer = rotRodDer;
-	KeyFrame[FrameIndex].rotDer2 = rotDer2;
-
-	KeyFrame[FrameIndex].rotBraDer = rotBraDer;
-	KeyFrame[FrameIndex].rotBraIzq = rotBraIzq;
-
-	FrameIndex++;
-}
-
 void resetElements(void)
 {
 	posX = KeyFrame[0].posX;
@@ -286,6 +387,48 @@ void resetElements2(void)
 	rot2BraIzq = KeyFrame2[0].rot2BraIzq;
 }
 
+void resetElements3(void)
+{
+	posX3 = KeyFrame3[0].posX3;
+	posY3 = KeyFrame3[0].posY3;
+	posZ3 = KeyFrame3[0].posZ3;
+
+	rot3BraDer = KeyFrame3[0].rot3BraDer;
+	rot3BraIzq = KeyFrame3[0].rot3BraIzq;
+	rotCuerpo3 = KeyFrame3[0].rot3Cuerpo;
+
+}
+
+void resetElements4(void)
+{
+	posX4 = KeyFrame4[0].posX4;
+	posY4 = KeyFrame4[0].posY4;
+	posZ4 = KeyFrame4[0].posZ4;
+
+	rot4BraDer = KeyFrame4[0].rotBraDer;
+	rot4BraIzq = KeyFrame4[0].rotBraIzq;
+	rot4RodIzq = KeyFrame4[0].rotRodIzq;
+	rot4RodDer = KeyFrame4[0].rotRodDer;
+}
+
+
+void resetElements5(void)
+{
+	posX5 = KeyFrame5[0].posX5;
+	posY5 = KeyFrame5[0].posY5;
+	posZ5 = KeyFrame5[0].posZ5;
+
+
+	rot5RodIzq = KeyFrame5[0].rot5RodIzq;
+	rot5RodIzq2 = KeyFrame5[0].rot5RodIzq2;
+	rot5RodDer = KeyFrame5[0].rot5RodDer;
+	rot5RodDer2 = KeyFrame5[0].rot5RodDer2;
+	rot5Cabeza = KeyFrame5[0].rot5Cabeza;
+	rot5Mandibula = KeyFrame5[0].rot5Mandibula;
+
+}
+
+
 void interpolation(void)
 {
 
@@ -305,17 +448,59 @@ void interpolation(void)
 void interpolation2(void)
 {
 
-	KeyFrame2[playIndex2].incX2 = (KeyFrame2[playIndex2 + 1].posX2 - KeyFrame2[playIndex2].posX2) / i_max_steps;
-	KeyFrame2[playIndex2].incY2 = (KeyFrame2[playIndex2 + 1].posY2 - KeyFrame2[playIndex2].posY2) / i_max_steps;
-	KeyFrame2[playIndex2].incZ2 = (KeyFrame2[playIndex2 + 1].posZ2 - KeyFrame2[playIndex2].posZ2) / i_max_steps;
-	KeyFrame2[playIndex2].rot2Inc = (KeyFrame2[playIndex2 + 1].rot2RodIzq - KeyFrame2[playIndex2].rot2RodIzq) / i_max_steps;
-	KeyFrame2[playIndex2].rot2Inc2 = (KeyFrame2[playIndex2 + 1].rot2Izq2 - KeyFrame2[playIndex2].rot2Izq2) / i_max_steps;
+	KeyFrame2[playIndex2].incX2 = (KeyFrame2[playIndex2 + 1].posX2 - KeyFrame2[playIndex2].posX2) / i_max_steps2;
+	KeyFrame2[playIndex2].incY2 = (KeyFrame2[playIndex2 + 1].posY2 - KeyFrame2[playIndex2].posY2) / i_max_steps2;
+	KeyFrame2[playIndex2].incZ2 = (KeyFrame2[playIndex2 + 1].posZ2 - KeyFrame2[playIndex2].posZ2) / i_max_steps2;
+	KeyFrame2[playIndex2].rot2Inc = (KeyFrame2[playIndex2 + 1].rot2RodIzq - KeyFrame2[playIndex2].rot2RodIzq) / i_max_steps2;
+	KeyFrame2[playIndex2].rot2Inc2 = (KeyFrame2[playIndex2 + 1].rot2Izq2 - KeyFrame2[playIndex2].rot2Izq2) / i_max_steps2;
 
-	KeyFrame2[playIndex2].rot2Inc3 = (KeyFrame2[playIndex2 + 1].rot2RodDer - KeyFrame2[playIndex2].rot2RodDer) / i_max_steps;
-	KeyFrame2[playIndex2].rot2Inc4 = (KeyFrame2[playIndex2 + 1].rot2Der2 - KeyFrame2[playIndex2].rot2Der2) / i_max_steps;
-	KeyFrame2[playIndex2].rot2Inc5 = (KeyFrame2[playIndex2 + 1].rot2BraDer - KeyFrame2[playIndex2].rot2BraDer) / i_max_steps;
-	KeyFrame2[playIndex2].rot2Inc6 = (KeyFrame2[playIndex2 + 1].rot2BraIzq - KeyFrame2[playIndex2].rot2BraIzq) / i_max_steps;
+	KeyFrame2[playIndex2].rot2Inc3 = (KeyFrame2[playIndex2 + 1].rot2RodDer - KeyFrame2[playIndex2].rot2RodDer) / i_max_steps2;
+	KeyFrame2[playIndex2].rot2Inc4 = (KeyFrame2[playIndex2 + 1].rot2Der2 - KeyFrame2[playIndex2].rot2Der2) / i_max_steps2;
+	KeyFrame2[playIndex2].rot2Inc5 = (KeyFrame2[playIndex2 + 1].rot2BraDer - KeyFrame2[playIndex2].rot2BraDer) / i_max_steps2;
+	KeyFrame2[playIndex2].rot2Inc6 = (KeyFrame2[playIndex2 + 1].rot2BraIzq - KeyFrame2[playIndex2].rot2BraIzq) / i_max_steps2;
 }
+
+void interpolation3(void)
+{
+
+	KeyFrame3[playIndex3].incX3 = (KeyFrame3[playIndex3 + 1].posX3 - KeyFrame3[playIndex3].posX3) / i_max_steps3;
+	KeyFrame3[playIndex3].incY3 = (KeyFrame3[playIndex3 + 1].posY3 - KeyFrame3[playIndex3].posY3) / i_max_steps3;
+	KeyFrame3[playIndex3].incZ3 = (KeyFrame3[playIndex3 + 1].posZ3 - KeyFrame3[playIndex3].posZ3) / i_max_steps3;
+	KeyFrame3[playIndex3].rotInc1 = (KeyFrame3[playIndex3 + 1].rot3BraDer - KeyFrame3[playIndex3].rot3BraDer) / i_max_steps3;
+	KeyFrame3[playIndex3].rotInc2 = (KeyFrame3[playIndex3 + 1].rot3BraIzq - KeyFrame3[playIndex3].rot3BraIzq) / i_max_steps3;
+	KeyFrame3[playIndex3].rotInc3 = (KeyFrame3[playIndex3 + 1].rot3Cuerpo - KeyFrame3[playIndex3].rot3Cuerpo) / i_max_steps3;
+}
+
+void interpolation4(void)
+{
+
+	KeyFrame4[playIndex4].incX4 = (KeyFrame4[playIndex4 + 1].posX4 - KeyFrame4[playIndex4].posX4) / i_max_steps4;
+	KeyFrame4[playIndex4].incY4 = (KeyFrame4[playIndex4 + 1].posY4 - KeyFrame4[playIndex4].posY4) / i_max_steps4;
+	KeyFrame4[playIndex4].incZ4 = (KeyFrame4[playIndex4 + 1].posZ4 - KeyFrame4[playIndex4].posZ4) / i_max_steps4;
+
+	KeyFrame4[playIndex4].rotInc1 = (KeyFrame4[playIndex4 + 1].rotBraDer - KeyFrame4[playIndex4].rotBraDer) / i_max_steps4;
+	KeyFrame4[playIndex4].rotInc2 = (KeyFrame4[playIndex4 + 1].rotBraIzq - KeyFrame4[playIndex4].rotBraIzq) / i_max_steps4;
+	KeyFrame4[playIndex4].rotInc3 = (KeyFrame4[playIndex4 + 1].rotRodDer - KeyFrame4[playIndex4].rotRodDer) / i_max_steps4;
+	KeyFrame4[playIndex4].rotInc4 = (KeyFrame4[playIndex4 + 1].rotRodIzq - KeyFrame4[playIndex4].rotRodIzq) / i_max_steps4;
+
+}
+
+void interpolation5(void)
+{
+
+	KeyFrame5[playIndex5].incX5 = (KeyFrame5[playIndex5 + 1].posX5 - KeyFrame5[playIndex5].posX5) / i_max_steps5;
+	KeyFrame5[playIndex5].incY5 = (KeyFrame5[playIndex5 + 1].posY5 - KeyFrame5[playIndex5].posY5) / i_max_steps5;
+	KeyFrame5[playIndex5].incZ5 = (KeyFrame5[playIndex5 + 1].posZ5 - KeyFrame5[playIndex5].posZ5) / i_max_steps5;
+
+
+	KeyFrame5[playIndex5].rotInc1 = (KeyFrame5[playIndex5 + 1].rot5RodIzq - KeyFrame5[playIndex5].rot5RodIzq) / i_max_steps5;
+	KeyFrame5[playIndex5].rotInc2 = (KeyFrame5[playIndex5 + 1].rot5RodIzq2 - KeyFrame5[playIndex5].rot5RodIzq2) / i_max_steps5;
+	KeyFrame5[playIndex5].rotInc3 = (KeyFrame5[playIndex5 + 1].rot5RodDer - KeyFrame5[playIndex5].rot5RodDer) / i_max_steps5;
+	KeyFrame5[playIndex5].rotInc4 = (KeyFrame5[playIndex5 + 1].rot5RodDer2 - KeyFrame5[playIndex5].rot5RodDer2) / i_max_steps5;
+	KeyFrame5[playIndex5].rotInc5 = (KeyFrame5[playIndex5 + 1].rot5Cabeza - KeyFrame5[playIndex5].rot5Cabeza) / i_max_steps5;
+	KeyFrame5[playIndex5].rotInc6 = (KeyFrame5[playIndex5 + 1].rot5Mandibula - KeyFrame5[playIndex5].rot5Mandibula) / i_max_steps5;
+}
+
 
 int main()
 {
@@ -371,6 +556,7 @@ int main()
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
 	Shader SkyBoxshader("Shaders/SkyBox.vs", "Shaders/SkyBox.frag");
 	
+	Model Arbol((char*)"Models/Arbol/Arbol.obj");
 	Model Piso((char*)"Models/Esfera/Piso.obj");
 	Model Esfera((char*)"Models/Esfera/Esfera.obj");
 	Model P2((char*)"Models/PC/P2.obj");
@@ -384,6 +570,11 @@ int main()
 	Model Puerta((char*)"Models/Puerta/Puerta.obj");
 	Model bola((char*)"Models/bola/bola.obj");
 	Model Librero((char*)"Models/Librero/Librero2.obj");
+	Model Valla((char*)"Models/Valla/Valla.obj");
+	Model Puerta2((char*)"Models/Puerta2/Puerta2.obj");
+	
+	Model Celda2((char*)"Models/celda2/celda.obj");
+	Model Celda3((char*)"Models/Celda3/Celda3.obj");
 	Model robotcuerpo((char*)"Models/robot/robotcuerpo.obj");
 	Model robotfemur((char*)"Models/robot/femur.obj");
 	Model fibula((char*)"Models/robot/tibia.obj");
@@ -395,6 +586,39 @@ int main()
 	Model robotfemur2((char*)"Models/robot1/femur.obj");
 	Model fibula2((char*)"Models/robot1/tibia.obj");
 	Model pie2((char*)"Models/robot1/pie.obj");
+
+
+	//Velociraptor
+	Model VelCuerpo((char*)"Models/Dino1/Cuerpo.obj");
+	Model VelPieDer1((char*)"Models/Dino1/pieDer1.obj");
+	Model VelPieDer2((char*)"Models/Dino1/pieDer2.obj");
+	Model VelPieDer3((char*)"Models/Dino1/pieDer3.obj");
+	Model VelPieIzq1((char*)"Models/Dino1/pieIzq1.obj");
+	Model VelPieIzq2((char*)"Models/Dino1/pieIzq2.obj");
+	Model VelPieIzq3((char*)"Models/Dino1/pieIzq3.obj");
+
+	//Vuela
+	Model VuelaCuerpo((char*)"Models/Dino2/Cuerpo.obj");
+	Model VuelaBrazoDer((char*)"Models/Dino2/BrazoDer.obj");
+	Model VuelaBrazoIzq((char*)"Models/Dino2/BrazoIzq.obj");
+
+	//Trex
+	Model TrexCuerpo((char*)"Models/Dino3/Cuerpo.obj");
+	Model TrexBraDer((char*)"Models/Dino3/BrazoDer.obj");
+	Model TrexBraIzq((char*)"Models/Dino3/BrazoIzq.obj");
+	Model TrexPieDer1((char*)"Models/Dino3/pieDer1.obj");
+	Model TrexPieDer2((char*)"Models/Dino3/pieDer2.obj");
+	Model TrexPieIzq1((char*)"Models/Dino3/pieIzq1.obj");
+	Model TrexPieIzq2((char*)"Models/Dino3/pieIzq2.obj");
+
+	//brach
+	Model brachCuerpo((char*)"Models/Dino4/Cuerpo.obj");
+	Model brachPieDer1((char*)"Models/Dino4/pieDer1.obj");
+	Model brachPieIzq1((char*)"Models/Dino4/pieIzq1.obj");
+	Model brachPieDer2((char*)"Models/Dino4/pieDer2.obj");
+	Model brachPieIzq2((char*)"Models/Dino4/pieIzq2.obj");
+	Model brachCabeza((char*)"Models/Dino4/cabeza.obj");
+	Model brachMandibula((char*)"Models/Dino4/boca.obj");
 
 	//Inicialización de KeyFrames
 
@@ -480,44 +704,276 @@ int main()
 
 
 	KeyFrame2[1].posX2 = posX2;
-	KeyFrame2[1].posY2 = posY2;
+	KeyFrame2[1].posY2 = posY2-0.05;
 	KeyFrame2[1].posZ2 = posZ2;
-	KeyFrame2[1].rot2RodIzq = -10;
-	KeyFrame2[1].rot2Izq2 = 0;
-	KeyFrame2[1].rot2RodDer = -10;
-	KeyFrame2[1].rot2Der2 = 0;
+	KeyFrame2[1].rot2RodIzq = -2;
+	KeyFrame2[1].rot2Izq2 = -2;
+	KeyFrame2[1].rot2RodDer = -2;
+	KeyFrame2[1].rot2Der2 = -2;
 
 	KeyFrame2[2].posX2 = posX2;
 	KeyFrame2[2].posY2 = posY2+0.5;
-	KeyFrame2[2].posZ2 = posZ2+0.5;
-	KeyFrame2[2].rot2RodIzq = 20;
-	KeyFrame2[2].rot2Izq2 = 0;
-	KeyFrame2[2].rot2RodDer = -20;
-	KeyFrame2[2].rot2Der2 = 0;
+	KeyFrame2[2].posZ2 = posZ2+1.5;
+	KeyFrame2[2].rot2RodIzq = -2;
+	KeyFrame2[2].rot2Izq2 = 40;
+	KeyFrame2[2].rot2RodDer =2;
+	KeyFrame2[2].rot2Der2 = -40;
 
-	KeyFrame2[3].posX2 = posX2;
-	KeyFrame2[3].posY2 = posY2+1;
-	KeyFrame2[3].posZ2 = posZ2+1;
-	KeyFrame2[3].rot2RodIzq = 40;
-	KeyFrame2[3].rot2Izq2 = 15;
-	KeyFrame2[3].rot2RodDer = -40;
-	KeyFrame2[3].rot2Der2 = -15;
+	//KeyFrame2[3].posX2 = posX2;
+	//KeyFrame2[3].posY2 = posY2+1;
+	//KeyFrame2[3].posZ2 = posZ2+1;
+	//KeyFrame2[3].rot2RodIzq = 5;
+	//KeyFrame2[3].rot2Izq2 = 15;
+	//KeyFrame2[3].rot2RodDer = -40;
+	//KeyFrame2[3].rot2Der2 = -15;
 
-	KeyFrame2[4].posX2 = posX2;
-	KeyFrame2[4].posY2 = posY2+0.5;
-	KeyFrame2[4].posZ2 = posZ2+1.5;
-	KeyFrame2[4].rot2RodIzq = -20;
-	KeyFrame2[4].rot2Izq2 = 0;
-	KeyFrame2[4].rot2RodDer = 20;
-	KeyFrame2[4].rot2Der2 = 0;
+	//KeyFrame2[4].posX2 = posX2;
+	//KeyFrame2[4].posY2 = posY2+0.5;
+	//KeyFrame2[4].posZ2 = posZ2+1.5;
+	//KeyFrame2[4].rot2RodIzq = -20;
+	//KeyFrame2[4].rot2Izq2 = 0;
+	//KeyFrame2[4].rot2RodDer = 20;
+	//KeyFrame2[4].rot2Der2 = 0;
 
-	KeyFrame2[5].posX2 = posX2;
-	KeyFrame2[5].posY2 = posY2;
-	KeyFrame2[5].posZ2 = posZ2+2;
-	KeyFrame2[5].rot2RodIzq = 0;
-	KeyFrame2[5].rot2Izq2 = 0;
-	KeyFrame2[5].rot2RodDer = 0;
-	KeyFrame2[5].rot2Der2 = 0;
+	//KeyFrame2[5].posX2 = posX2;
+	//KeyFrame2[5].posY2 = posY2;
+	//KeyFrame2[5].posZ2 = posZ2+2;
+	//KeyFrame2[5].rot2RodIzq = 0;
+	//KeyFrame2[5].rot2Izq2 = 0;
+	//KeyFrame2[5].rot2RodDer = 0;
+	//KeyFrame2[5].rot2Der2 = 0;
+
+	//Animacion3
+	KeyFrame3[0].posX3 = posX3;
+	KeyFrame3[0].posY3 = posY3;
+	KeyFrame3[0].posZ3 = posZ3;
+	KeyFrame3[0].rot3BraDer = 0;
+	KeyFrame3[0].rot3BraIzq = 0;
+	KeyFrame3[0].rot3Cuerpo = 0;
+
+	KeyFrame3[1].posX3 = posX3;
+	KeyFrame3[1].posY3 = posY3;
+	KeyFrame3[1].posZ3 = posZ3+10;
+	KeyFrame3[1].rot3BraDer = 20;
+	KeyFrame3[1].rot3BraIzq = 20;
+	KeyFrame3[1].rot3Cuerpo = 0;
+
+	KeyFrame3[2].posX3 = posX3;
+	KeyFrame3[2].posY3 = posY3;
+	KeyFrame3[2].posZ3 = posZ3 + 20;
+	KeyFrame3[2].rot3BraDer = -20;
+	KeyFrame3[2].rot3BraIzq = 20;
+	KeyFrame3[2].rot3Cuerpo = 0;
+
+	KeyFrame3[3].posX3 = posX3;
+	KeyFrame3[3].posY3 = posY3;
+	KeyFrame3[3].posZ3 = posZ3 + 30;
+	KeyFrame3[3].rot3BraDer = 20;
+	KeyFrame3[3].rot3BraIzq = 0;
+	KeyFrame3[3].rot3Cuerpo = 20;
+
+	KeyFrame3[4].posX3 = posX3+10;
+	KeyFrame3[4].posY3 = posY3;
+	KeyFrame3[4].posZ3 = posZ3 + 40;
+	KeyFrame3[4].rot3BraDer = -20;
+	KeyFrame3[4].rot3BraIzq = 0;
+	KeyFrame3[4].rot3Cuerpo = 45;
+
+	KeyFrame3[5].posX3 = posX3 + 20;
+	KeyFrame3[5].posY3 = posY3;
+	KeyFrame3[5].posZ3 = posZ3 + 50;
+	KeyFrame3[5].rot3BraDer = 20;
+	KeyFrame3[5].rot3BraIzq = 0;
+	KeyFrame3[5].rot3Cuerpo = 45;
+
+	KeyFrame3[6].posX3 = posX3 + 30;
+	KeyFrame3[6].posY3 = posY3;
+	KeyFrame3[6].posZ3 = posZ3 + 60;
+	KeyFrame3[6].rot3BraDer = -20;
+	KeyFrame3[6].rot3BraIzq = 0;
+	KeyFrame3[6].rot3Cuerpo = 50;
+
+
+	KeyFrame3[7].posX3 = posX3 + 40;
+	KeyFrame3[7].posY3 = posY3;
+	KeyFrame3[7].posZ3 = posZ3 + 70;
+	KeyFrame3[7].rot3BraDer = 20;
+	KeyFrame3[7].rot3BraIzq = 0;
+	KeyFrame3[7].rot3Cuerpo = 50;
+
+
+	KeyFrame3[8].posX3 = posX3 + 50;
+	KeyFrame3[8].posY3 = posY3;
+	KeyFrame3[8].posZ3 = posZ3 + 80;
+	KeyFrame3[8].rot3BraDer = -20;
+	KeyFrame3[8].rot3BraIzq = 0;
+	KeyFrame3[8].rot3Cuerpo = 50;
+
+	//Animacion4
+	KeyFrame4[0].posX4 = posX4;
+	KeyFrame4[0].posY4 = posY4;
+	KeyFrame4[0].posZ4 = posZ4;
+	KeyFrame4[0].rotBraDer = 0;
+	KeyFrame4[0].rotBraIzq = 0;
+	KeyFrame4[0].rotRodDer = 0;
+	KeyFrame4[0].rotRodIzq = 0;
+
+	KeyFrame4[1].posX4 = posX4;
+	KeyFrame4[1].posY4 = posY4;
+	KeyFrame4[1].posZ4 = posZ4+2;
+	KeyFrame4[1].rotBraDer = 10;
+	KeyFrame4[1].rotBraIzq = 10;
+	KeyFrame4[1].rotRodDer = 20;
+	KeyFrame4[1].rotRodIzq = -20;
+
+	KeyFrame4[2].posX4 = posX4;
+	KeyFrame4[2].posY4 = posY4;
+	KeyFrame4[2].posZ4 = posZ4+4;
+	KeyFrame4[2].rotBraDer = -10;
+	KeyFrame4[2].rotBraIzq = -7;
+	KeyFrame4[2].rotRodDer = -20;
+	KeyFrame4[2].rotRodIzq = 20;
+
+	KeyFrame4[3].posX4 = posX4;
+	KeyFrame4[3].posY4 = posY4;
+	KeyFrame4[3].posZ4 = posZ4 +6;
+	KeyFrame4[3].rotBraDer = 7;
+	KeyFrame4[3].rotBraIzq = 10;
+	KeyFrame4[3].rotRodDer = 20;
+	KeyFrame4[3].rotRodIzq = -20;
+
+	KeyFrame4[4].posX4 = posX4;
+	KeyFrame4[4].posY4 = posY4;
+	KeyFrame4[4].posZ4 = posZ4 + 8;
+	KeyFrame4[4].rotBraDer = -7;
+	KeyFrame4[4].rotBraIzq = -10;
+	KeyFrame4[4].rotRodDer = -20;
+	KeyFrame4[4].rotRodIzq = 20;
+
+	KeyFrame4[5].posX4 = posX4;
+	KeyFrame4[5].posY4 = posY4;
+	KeyFrame4[5].posZ4 = posZ4 + 10;
+	KeyFrame4[5].rotBraDer = 8;
+	KeyFrame4[5].rotBraIzq = 9;
+	KeyFrame4[5].rotRodDer = 20;
+	KeyFrame4[5].rotRodIzq = -20;
+
+	KeyFrame4[6].posX4 = posX4;
+	KeyFrame4[6].posY4 = posY4;
+	KeyFrame4[6].posZ4 = posZ4 + 12;
+	KeyFrame4[6].rotBraDer = -10;
+	KeyFrame4[6].rotBraIzq = -7;
+	KeyFrame4[6].rotRodDer = -10;
+	KeyFrame4[6].rotRodIzq = 10;
+
+	KeyFrame4[7].posX4 = posX4;
+	KeyFrame4[7].posY4 = posY4;
+	KeyFrame4[7].posZ4 = posZ4 + 14;
+	KeyFrame4[7].rotBraDer = 7;
+	KeyFrame4[7].rotBraIzq = 10;
+	KeyFrame4[7].rotRodDer = 10;
+	KeyFrame4[7].rotRodIzq = -10;
+
+	KeyFrame4[8].posX4 = posX4;
+	KeyFrame4[8].posY4 = posY4;
+	KeyFrame4[8].posZ4 = posZ4 + 16;
+	KeyFrame4[8].rotBraDer = 2;
+	KeyFrame4[8].rotBraIzq = 2;
+	KeyFrame4[8].rotRodDer = 0;
+	KeyFrame4[8].rotRodIzq = 0;
+
+
+	//Animacion5
+	KeyFrame5[0].posX5 = posX5;
+	KeyFrame5[0].posY5 = posY5;
+	KeyFrame5[0].posZ5 = posZ5;
+	KeyFrame5[0].rot5RodDer = 0;
+	KeyFrame5[0].rot5RodDer2 = 0;
+	KeyFrame5[0].rot5RodIzq = 0;
+	KeyFrame5[0].rot5RodIzq2 = 0;
+	KeyFrame5[0].rot5Cabeza = 0;
+	KeyFrame5[0].rot5Mandibula = 0;
+
+	KeyFrame5[1].posX5 = posX5-5;
+	KeyFrame5[1].posY5 = posY5;
+	KeyFrame5[1].posZ5 = posZ5;
+	KeyFrame5[1].rot5RodDer = 10;
+	KeyFrame5[1].rot5RodDer2 = -10;
+	KeyFrame5[1].rot5RodIzq = -10;
+	KeyFrame5[1].rot5RodIzq2 = 10;
+	KeyFrame5[1].rot5Cabeza = 5;
+	KeyFrame5[1].rot5Mandibula = 5;
+
+	KeyFrame5[2].posX5 = posX5 - 10;
+	KeyFrame5[2].posY5 = posY5;
+	KeyFrame5[2].posZ5 = posZ5;
+	KeyFrame5[2].rot5RodDer = -10;
+	KeyFrame5[2].rot5RodDer2 = 10;
+	KeyFrame5[2].rot5RodIzq = 10;
+	KeyFrame5[2].rot5RodIzq2 = -10;
+	KeyFrame5[2].rot5Cabeza = -5;
+	KeyFrame5[2].rot5Mandibula = 5;
+
+	KeyFrame5[3].posX5 = posX5 - 15;
+	KeyFrame5[3].posY5 = posY5;
+	KeyFrame5[3].posZ5 = posZ5;
+	KeyFrame5[3].rot5RodDer = 10;
+	KeyFrame5[3].rot5RodDer2 = -10;
+	KeyFrame5[3].rot5RodIzq = -10;
+	KeyFrame5[3].rot5RodIzq2 = 10;
+	KeyFrame5[3].rot5Cabeza = 2;
+	KeyFrame5[3].rot5Mandibula = 25;
+
+	KeyFrame5[4].posX5 = posX5 - 15;
+	KeyFrame5[4].posY5 = posY5;
+	KeyFrame5[4].posZ5 = posZ5;
+	KeyFrame5[4].rot5RodDer = 0;
+	KeyFrame5[4].rot5RodDer2 = 0;
+	KeyFrame5[4].rot5RodIzq = 0;
+	KeyFrame5[4].rot5RodIzq2 = 0;
+	KeyFrame5[4].rot5Cabeza = 2;
+	KeyFrame5[4].rot5Mandibula = 0;
+
+	KeyFrame5[5].posX5 = posX5 - 15;
+	KeyFrame5[5].posY5 = posY5;
+	KeyFrame5[5].posZ5 = posZ5;
+	KeyFrame5[5].rot5RodDer = 0;
+	KeyFrame5[5].rot5RodDer2 = 0;
+	KeyFrame5[5].rot5RodIzq = 0;
+	KeyFrame5[5].rot5RodIzq2 = 0;
+	KeyFrame5[5].rot5Cabeza = 2;
+	KeyFrame5[5].rot5Mandibula = 25;
+
+	KeyFrame5[6].posX5 = posX5 - 15;
+	KeyFrame5[6].posY5 = posY5;
+	KeyFrame5[6].posZ5 = posZ5;
+	KeyFrame5[6].rot5RodDer = 0;
+	KeyFrame5[6].rot5RodDer2 = 0;
+	KeyFrame5[6].rot5RodIzq = 0;
+	KeyFrame5[6].rot5RodIzq2 = 0;
+	KeyFrame5[6].rot5Cabeza = 2;
+	KeyFrame5[6].rot5Mandibula = 0;
+
+	KeyFrame5[7].posX5 = posX5 - 15;
+	KeyFrame5[7].posY5 = posY5;
+	KeyFrame5[7].posZ5 = posZ5;
+	KeyFrame5[7].rot5RodDer = 0;
+	KeyFrame5[7].rot5RodDer2 = 0;
+	KeyFrame5[7].rot5RodIzq = 0;
+	KeyFrame5[7].rot5RodIzq2 = 0;
+	KeyFrame5[7].rot5Cabeza = 2;
+	KeyFrame5[7].rot5Mandibula = 25;
+
+	KeyFrame5[8].posX5 = posX5 - 15;
+	KeyFrame5[8].posY5 = posY5;
+	KeyFrame5[8].posZ5 = posZ5;
+	KeyFrame5[8].rot5RodDer = 0;
+	KeyFrame5[8].rot5RodDer2 = 0;
+	KeyFrame5[8].rot5RodIzq = 0;
+	KeyFrame5[8].rot5RodIzq2 = 0;
+	KeyFrame5[8].rot5Cabeza = 2;
+	KeyFrame5[8].rot5Mandibula = 10;
+
 
 
 
@@ -724,6 +1180,9 @@ int main()
 		DoMovement();
 		animacion();
 		animacion2();
+		animacion3();
+		animacion4();
+		animacion5();
 
 		// Clear the colorbuffer
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -843,59 +1302,65 @@ int main()
 		//Carga de modelo 
         view = camera.GetViewMatrix();	
 		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.5f, 1.0f, 2.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.2f, -40.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
 		Piso.Draw(lightingShader);
+
+
+		model = glm::mat4(1);
 		model = glm::translate(model, glm::vec3(0.0f, 0.2f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
 		Casa.Draw(lightingShader);
-		model = glm::translate(model, glm::vec3(7.0f, 0.5f, -3.0f));
-		model = glm::scale(model, glm::vec3(1.6f, 1.6f, 1.6f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		maquina2.Draw(lightingShader);
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(0.0f, 0.5, -1.8f));
-		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		P2.Draw(lightingShader);
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(6.0f, 0.6, 4.9));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		maquina1.Draw(lightingShader);
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(0.0f, 0.6, 4.0));
-		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		Mesa.Draw(lightingShader);
+	
+		//model = glm::translate(model, glm::vec3(7.0f, 0.5f, -3.0f));
+		//model = glm::scale(model, glm::vec3(1.6f, 1.6f, 1.6f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//maquina2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(0.0f, 0.5, -1.8f));
+		//model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//P2.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(6.0f, 0.6, 4.9));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//maquina1.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(0.0f, 0.6, 4.0));
+		//model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//Mesa.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(-6.0f, 0.8, 1.0));
-		model = glm::scale(model, glm::vec3(1.4f, 1.4f, 1.4f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		Celda.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(-6.0f, 0.8, 1.0));
+		//model = glm::scale(model, glm::vec3(1.4f, 1.4f, 1.4f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//Celda.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(-6.0f, 0.4, -5.0));
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		maquina3.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(-6.0f, 0.4, -5.0));
+		//model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//maquina3.Draw(lightingShader);
 
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(7.5f, 0.3f, 1.0f));
-		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
-		model = glm::rotate(model, glm::radians(-80.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		maquina4.Draw(lightingShader);
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(7.5f, 0.3f, 1.0f));
+		//model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		//model = glm::rotate(model, glm::radians(-80.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//maquina4.Draw(lightingShader);
 
 		model = glm::mat4(1);
 		model = glm::translate(model, glm::vec3(-12.8f, 2.0f, 7.8f));
@@ -904,147 +1369,186 @@ int main()
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
 		Puerta.Draw(lightingShader);
 
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(7.0f, 1.82 + movimientoEsfera, -3.0));
+		//model = glm::scale(model, glm::vec3(1.1f + movimientoEsfera * 3, 1.1f + movimientoEsfera * 3, 1.1f + movimientoEsfera * 3));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//bola.Draw(lightingShader);
+
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(0.0f, 0.2f,0.0f+movimientolibrero));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		//Librero.Draw(lightingShader);
+
+
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(7.0f, 1.82 + movimientoEsfera, -3.0));
-		model = glm::scale(model, glm::vec3(1.1f + movimientoEsfera * 3, 1.1f + movimientoEsfera * 3, 1.1f + movimientoEsfera * 3));
+		model = glm::translate(model, glm::vec3(-38.0f, 2.0f, -80.0f));
+		model = glm::rotate(model, glm::radians(-30.0f), glm::vec3(0.0f, 1.0f, 0.0));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		bola.Draw(lightingShader);
+		Celda2.Draw(lightingShader);
 
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(0.0f, 0.2f,0.0f+movimientolibrero));
+		model = glm::translate(model, glm::vec3(38.0f, 2.0f, -86.0f));
+		model = glm::scale(model, glm::vec3(0.6f, 0.7f, 0.6f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
-		Librero.Draw(lightingShader);
+		Celda2.Draw(lightingShader);
 
-		//Robot
-
-		glm::mat4 tmp = glm::mat4(1.0f); //Temp
-		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
-		tmp = model = glm::translate(model, glm::vec3(0, 1, 0));
-		model = glm::translate(model, glm::vec3(posX, posY, posZ));
-		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-		model = glm::scale(model, glm::vec3(0.1f,0.1f,0.1f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		robotcuerpo.Draw(lightingShader);
+		model = glm::translate(model, glm::vec3(38.0f, 0.0f, -40.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 
-		//Pierna Izq
-		view = camera.GetViewMatrix();
-		model = glm::translate(tmp, glm::vec3(-0.2f, -0.52f, 0.0f));
-		model = glm::translate(model, glm::vec3(posX, posY, posZ));
-		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-		model = glm::rotate(model, glm::radians(-rotRodIzq), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		robotfemur.Draw(lightingShader);
-
-		view = camera.GetViewMatrix();
-		model = glm::translate(model, glm::vec3(0, -3.2f, -0.0f));
-		model = glm::rotate(model, glm::radians(-rotIzq2), glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		fibula.Draw(lightingShader);
-
-		view = camera.GetViewMatrix();
-		model = glm::translate(model, glm::vec3(0, -3.3f, -0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pie.Draw(lightingShader);
-		
-		//Pierna Der
-		view = camera.GetViewMatrix();
-		model = glm::translate(tmp, glm::vec3(0.2f, -0.52f, 0.0f));
-		model = glm::translate(model, glm::vec3(posX, posY, posZ));
-		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-		model = glm::rotate(model, glm::radians(-rotRodDer), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		robotfemur.Draw(lightingShader);
-
-		view = camera.GetViewMatrix();
-		model = glm::translate(model, glm::vec3(0, -3.2f, -0.0f));
-		model = glm::rotate(model, glm::radians(-rotDer2), glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		fibula.Draw(lightingShader);
-
-		view = camera.GetViewMatrix();
-		model = glm::translate(model, glm::vec3(0, -3.3f, -0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pie.Draw(lightingShader);
-
-		//BrazoDer
-		view = camera.GetViewMatrix();
-		model = glm::translate(tmp, glm::vec3(-0.14f, 0.0f, 0.0f));
-		model = glm::translate(model, glm::vec3(posX, posY, posZ));
-		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-		model = glm::rotate(model, glm::radians(-rotBraDer), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		BrazoDer.Draw(lightingShader);
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		Celda3.Draw(lightingShader);
 
 
-		//BrazoIzq
-		view = camera.GetViewMatrix();
-		model = glm::translate(tmp, glm::vec3(0.14f, 0.0f, 0.0f));
-		model = glm::translate(model, glm::vec3(posX, posY, posZ));
-		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-		model = glm::rotate(model, glm::radians(-rotBraIzq), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-61.2f, 0.0f, -75.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		BrazoIzq.Draw(lightingShader);
-	 
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		Arbol.Draw(lightingShader);
 
-		//Segundo Robot
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(24.8f, -0.15f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTrans"), 0);
+		Puerta2.Draw(lightingShader);
+
+		////Robot
+
+		//glm::mat4 tmp = glm::mat4(1.0f); //Temp
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//tmp = model = glm::translate(model, glm::vec3(0, 1, 0));
+		//model = glm::translate(model, glm::vec3(posX, posY, posZ));
+		//model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
+		//model = glm::scale(model, glm::vec3(0.1f,0.1f,0.1f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//robotcuerpo.Draw(lightingShader);
+
+		////Pierna Izq
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(tmp, glm::vec3(-0.2f, -0.52f, 0.0f));
+		//model = glm::translate(model, glm::vec3(posX, posY, posZ));
+		//model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
+		//model = glm::rotate(model, glm::radians(-rotRodIzq), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//robotfemur.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(model, glm::vec3(0, -3.2f, -0.0f));
+		//model = glm::rotate(model, glm::radians(-rotIzq2), glm::vec3(1.0f, 0.0f, 0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//fibula.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(model, glm::vec3(0, -3.3f, -0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//pie.Draw(lightingShader);
+		//
+		////Pierna Der
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(tmp, glm::vec3(0.2f, -0.52f, 0.0f));
+		//model = glm::translate(model, glm::vec3(posX, posY, posZ));
+		//model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
+		//model = glm::rotate(model, glm::radians(-rotRodDer), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//robotfemur.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(model, glm::vec3(0, -3.2f, -0.0f));
+		//model = glm::rotate(model, glm::radians(-rotDer2), glm::vec3(1.0f, 0.0f, 0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//fibula.Draw(lightingShader);
+
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(model, glm::vec3(0, -3.3f, -0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//pie.Draw(lightingShader);
+
+		////BrazoDer
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(tmp, glm::vec3(-0.14f, 0.0f, 0.0f));
+		//model = glm::translate(model, glm::vec3(posX, posY, posZ));
+		//model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
+		//model = glm::rotate(model, glm::radians(-rotBraDer), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//BrazoDer.Draw(lightingShader);
+
+
+		////BrazoIzq
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(tmp, glm::vec3(0.14f, 0.0f, 0.0f));
+		//model = glm::translate(model, glm::vec3(posX, posY, posZ));
+		//model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
+		//model = glm::rotate(model, glm::radians(-rotBraIzq), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//BrazoIzq.Draw(lightingShader);
+	 //
+
+		//Velociraptor
 		glm::mat4 tmp2 = glm::mat4(1.0f); //Temp
 		view = camera.GetViewMatrix();
 		model = glm::mat4(1);
 		tmp2 = model = glm::translate(model, glm::vec3(0, 1, 0));
 		model = glm::translate(model, glm::vec3(posX2, posY2, posZ2));
 		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		robotcuerpo2.Draw(lightingShader);
+		VelCuerpo.Draw(lightingShader);
 
 		//Pierna Izq
 		view = camera.GetViewMatrix();
-		model = glm::translate(tmp2, glm::vec3(-0.295f, -0.07f, 0.55f));
+		model = glm::translate(tmp2, glm::vec3(-0.465f, -0.48f, -0.725f));
 		model = glm::translate(model, glm::vec3(posX2, posY2, posZ2));
 		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
 		model = glm::rotate(model, glm::radians(-rot2RodIzq), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		robotfemur2.Draw(lightingShader);
+		VelPieIzq1.Draw(lightingShader);
 
 		view = camera.GetViewMatrix();
-		model = glm::translate(model, glm::vec3(-0.02, -0.93f, 0.9f));
+		model = glm::translate(model, glm::vec3(-0.025, -0.115, 0.005f));
 		model = glm::rotate(model, glm::radians(-rot2Izq2), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		fibula2.Draw(lightingShader);
+		VelPieIzq2.Draw(lightingShader);
 
 		view = camera.GetViewMatrix();
-		model = glm::translate(model, glm::vec3(0, -0.85f, -0.85f));
+		model = glm::translate(model, glm::vec3(0.04665f, -0.486f, -0.1218f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pie2.Draw(lightingShader);
+		VelPieIzq3.Draw(lightingShader);
 
 		//Pierna Derecha
 		view = camera.GetViewMatrix();
-		model = glm::translate(tmp2, glm::vec3(0.295f, -0.07f, 0.55f));
+		model = glm::translate(tmp2, glm::vec3(0.46f, -0.43f, -0.69f));
 		model = glm::translate(model, glm::vec3(posX2, posY2, posZ2));
 		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
 		model = glm::rotate(model, glm::radians(-rot2RodDer), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		robotfemur2.Draw(lightingShader);
+		VelPieDer1.Draw(lightingShader);
 
 		view = camera.GetViewMatrix();
-		model = glm::translate(model, glm::vec3(0.02, -0.93f, 0.9f));
+		model = glm::translate(model, glm::vec3(0.045, -0.18f,-0.01f));
 		model = glm::rotate(model, glm::radians(-rot2Der2), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		fibula2.Draw(lightingShader);
+		VelPieDer2.Draw(lightingShader);
 
 		view = camera.GetViewMatrix();
-		model = glm::translate(model, glm::vec3(0, -0.85f, -0.85f));
+		model = glm::translate(model, glm::vec3(-0.0735f, -0.449f, -0.105f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pie2.Draw(lightingShader);
+		VelPieDer3.Draw(lightingShader);
 
 
 		glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
@@ -1055,6 +1559,168 @@ int main()
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 1.0, 1.0);
 		glDisable(GL_BLEND);  //Desactiva el canal alfa 
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 1.0, 1.0);
+
+
+
+		////Vuela
+
+		//glm::mat4 tmp3 = glm::mat4(1.0f); //Temp
+		//view = camera.GetViewMatrix();
+		//model = glm::mat4(1);
+		//tmp3 = model = glm::translate(model, glm::vec3(0, 1, 0));
+		//model = glm::translate(model, glm::vec3(posX3, posY3, posZ3));
+		//model = glm::rotate(model, glm::radians(rotCuerpo3), glm::vec3(0.0f, 1.0f, 0.0));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//VuelaCuerpo.Draw(lightingShader);
+
+		//////BrazoDer
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(tmp3, glm::vec3(0.35f, 0.05f, -0.07f));
+		//model = glm::translate(model, glm::vec3(posX3, posY3, posZ3));
+		//model = glm::rotate(model, glm::radians(rotCuerpo3), glm::vec3(0.0f, 1.0f, 0.0));
+		//model = glm::rotate(model, glm::radians(-rot3BraDer), glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//VuelaBrazoDer.Draw(lightingShader);
+
+		//////BrazoIzq
+		//view = camera.GetViewMatrix();
+		//model = glm::translate(tmp3, glm::vec3(-0.4f, 0.03f, -0.11f));
+		//model = glm::translate(model, glm::vec3(posX3, posY3, posZ3));
+		//model = glm::rotate(model, glm::radians(rotCuerpo3), glm::vec3(0.0f, 1.0f, 0.0));
+		//model = glm::rotate(model, glm::radians(rot3BraDer), glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//VuelaBrazoIzq.Draw(lightingShader);
+
+		////Trex
+		glm::mat4 tmp4 = glm::mat4(1.0f); //Temp
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		tmp4 = model = glm::translate(model, glm::vec3(0, 1, 0));
+		model = glm::translate(model, glm::vec3(posX4, posY4, posZ4));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		TrexCuerpo.Draw(lightingShader);
+
+		//Pierna Derecha
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp4, glm::vec3(1.62f, -1.73f, 0.11f));
+		model = glm::translate(model, glm::vec3(posX4, posY4, posZ4));
+		model = glm::rotate(model, glm::radians(-rot4RodDer), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		TrexPieDer1.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::translate(model, glm::vec3(0.035f, -3.83f, -1.375f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		TrexPieDer2.Draw(lightingShader);
+
+		//Pierna Izqueira
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp4, glm::vec3(-1.8f, -1.9f, 0.017f));
+		model = glm::translate(model, glm::vec3(posX4, posY4, posZ4));
+		model = glm::rotate(model, glm::radians(-rot4RodIzq), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		TrexPieIzq1.Draw(lightingShader);
+
+		view = camera.GetViewMatrix();
+		model = glm::translate(model, glm::vec3(-0.036f, -3.8f, -1.24f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		TrexPieIzq2.Draw(lightingShader);
+
+		//BrazoDerecho
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp4, glm::vec3(1.34f, -0.32f, 3.67f));
+		model = glm::translate(model, glm::vec3(posX4, posY4, posZ4));
+		model = glm::rotate(model, glm::radians(-rot4BraDer), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		TrexBraDer.Draw(lightingShader);
+
+		//BrazoIzq
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp4, glm::vec3(-1.46f, -0.35f, 3.63));
+		model = glm::translate(model, glm::vec3(posX4, posY4, posZ4));
+		model = glm::rotate(model, glm::radians(-rot4BraIzq), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		TrexBraIzq.Draw(lightingShader);
+
+
+		//Brach
+
+		glm::mat4 tmp5 = glm::mat4(1.0f); //Temp
+		view = camera.GetViewMatrix();
+		model = glm::mat4(1);
+		tmp5 = model = glm::translate(model, glm::vec3(0, 1, 0));
+		model = glm::translate(model, glm::vec3(posX5, posY5, posZ5));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(2.2f, 2.2f, 2.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		brachCuerpo.Draw(lightingShader);
+
+		////Cabeza
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp5, glm::vec3(-4.78f, 3.85f, -0.05f));
+		model = glm::translate(model, glm::vec3(posX5, posY5, posZ5));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::rotate(model, glm::radians(-rot5Cabeza), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.2f, 2.2f, 2.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		brachCabeza.Draw(lightingShader);
+		
+		//Mandibula
+		view = camera.GetViewMatrix();
+		model = glm::translate(model, glm::vec3(0.047f, 1.86f, 8.0f));
+		model = glm::rotate(model, glm::radians(-rot5Mandibula), glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		brachMandibula.Draw(lightingShader);
+
+		////PieDerecho
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp5, glm::vec3(-4.91f, -3.1f, 1.9f));
+		model = glm::translate(model, glm::vec3(posX5, posY5, posZ5));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::rotate(model, glm::radians(-rot5RodDer), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.2f, 2.2f, 2.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		brachPieDer1.Draw(lightingShader);
+
+
+		////PieIzq
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp5, glm::vec3(-4.93f, -3.0f, -1.8f));
+		model = glm::translate(model, glm::vec3(posX5, posY5, posZ5));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::rotate(model, glm::radians(-rot5RodIzq), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.2f, 2.2f, 2.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		brachPieIzq1.Draw(lightingShader);
+
+		////PieDerecho2
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp5, glm::vec3(4.23f, -4.25f, 1.56f));
+		model = glm::translate(model, glm::vec3(posX5, posY5, posZ5));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::rotate(model, glm::radians(-rot5RodDer2), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.2f, 2.2f, 2.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		brachPieDer2.Draw(lightingShader);
+
+
+		////PieIzq2
+		view = camera.GetViewMatrix();
+		model = glm::translate(tmp5, glm::vec3(4.3f, -4.25f, -1.38f));
+		model = glm::translate(model, glm::vec3(posX5, posY5, posZ5));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::rotate(model, glm::radians(-rot5RodIzq2), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.2f, 2.2f, 2.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		brachPieIzq2.Draw(lightingShader);
 
 		glBindVertexArray(0);
 	
@@ -1203,6 +1869,132 @@ void animacion2()
 	}
 }
 
+void animacion3()
+{
+
+	//Movimiento del personaje
+
+	if (play3)
+	{
+		if (i_curr_steps3 >= i_max_steps3) //end of animation between frames?
+		{
+			playIndex3++;
+			if (playIndex3 > FrameIndex3 - 2)	//end of total animation?
+			{
+				printf("termina anim3\n");
+				playIndex3 = 0;
+				play3 = false;
+			}
+			else //Next frame interpolations
+			{
+				i_curr_steps3 = 0; //Reset counter
+								  //Interpolation
+				interpolation3();
+			}
+		}
+		else
+		{
+			//Draw animation
+			posX3 += KeyFrame3[playIndex3].incX3;
+			posY3 += KeyFrame3[playIndex3].incY3;
+			posZ3 += KeyFrame3[playIndex3].incZ3;
+
+			rot3BraDer += KeyFrame3[playIndex3].rotInc1;
+			rot3BraIzq += KeyFrame3[playIndex3].rotInc2;
+			rotCuerpo3 += KeyFrame3[playIndex3].rotInc3;
+			i_curr_steps3++;
+		}
+
+	}
+}
+
+void animacion4()
+{
+
+	//Movimiento del personaje
+
+	if (play4)
+	{
+		if (i_curr_steps4 >= i_max_steps4) //end of animation between frames?
+		{
+			playIndex4++;
+			if (playIndex4 > FrameIndex4 - 2)	//end of total animation?
+			{
+				printf("termina anim4\n");
+				playIndex4 = 0;
+				play4 = false;
+			}
+			else //Next frame interpolations
+			{
+				i_curr_steps4 = 0; //Reset counter
+								  //Interpolation
+				interpolation4();
+			}
+		}
+		else
+		{
+			//Draw animation
+			posX4 += KeyFrame4[playIndex4].incX4;
+			posY4 += KeyFrame4[playIndex4].incY4;
+			posZ4 += KeyFrame4[playIndex4].incZ4;
+
+			rot4BraDer += KeyFrame4[playIndex4].rotInc1;
+			rot4BraIzq += KeyFrame4[playIndex4].rotInc2;
+			rot4RodDer += KeyFrame4[playIndex4].rotInc3;
+			rot4RodIzq += KeyFrame4[playIndex4].rotInc4;
+			
+
+			i_curr_steps4++;
+		}
+
+	}
+}
+
+
+
+
+void animacion5()
+{
+
+	//Movimiento del personaje
+
+	if (play5)
+	{
+		if (i_curr_steps5 >= i_max_steps5) //end of animation between frames?
+		{
+			playIndex5++;
+			if (playIndex5 > FrameIndex5 - 2)	//end of total animation?
+			{
+				printf("termina anim5\n");
+				playIndex5 = 0;
+				play5 = false;
+			}
+			else //Next frame interpolations
+			{
+				i_curr_steps5 = 0; //Reset counter
+								  //Interpolation
+				interpolation5();
+			}
+		}
+		else
+		{
+			//Draw animation
+			posX5 += KeyFrame5[playIndex5].incX5;
+			posY5 += KeyFrame5[playIndex5].incY5;
+			posZ5 += KeyFrame5[playIndex5].incZ5;
+
+
+			rot5RodIzq += KeyFrame5[playIndex5].rotInc1;
+			rot5RodIzq2 += KeyFrame5[playIndex5].rotInc2;
+			rot5RodDer += KeyFrame5[playIndex5].rotInc3;
+			rot5RodDer2 += KeyFrame5[playIndex5].rotInc4;
+			rot5Cabeza += KeyFrame5[playIndex5].rotInc5;
+			rot5Mandibula += KeyFrame5[playIndex5].rotInc6;
+			i_curr_steps5++;
+		}
+
+	}
+}
 
 
 
@@ -1395,6 +2187,68 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		else
 		{
 			play2 = false;
+		}
+
+	}
+
+	if (keys[GLFW_KEY_6])
+	{
+		if (play3 == false)
+		{
+
+			resetElements3();
+			//First Interpolation				
+			interpolation3();
+
+			play3 = true;
+			playIndex3 = 0;
+			i_curr_steps3 = 0;
+		}
+		else
+		{
+			play3 = false;
+		}
+
+	}
+
+
+	if (keys[GLFW_KEY_7])
+	{
+		if (play4 == false)
+		{
+
+			resetElements4();
+			//First Interpolation				
+			interpolation4();
+
+			play4 = true;
+			playIndex4 = 0;
+			i_curr_steps4 = 0;
+		}
+		else
+		{
+			play4 = false;
+		}
+
+	}
+
+
+	if (keys[GLFW_KEY_8])
+	{
+		if (play5 == false)
+		{
+
+			resetElements5();
+			//First Interpolation				
+			interpolation5();
+
+			play5 = true;
+			playIndex5 = 0;
+			i_curr_steps5 = 0;
+		}
+		else
+		{
+			play5 = false;
 		}
 
 	}

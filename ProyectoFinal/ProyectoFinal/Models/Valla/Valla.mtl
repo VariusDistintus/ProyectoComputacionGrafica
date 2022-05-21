@@ -1,0 +1,150 @@
+newmtl initialShadingGroup
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl pasted__pasted__pasted__phong1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__pasted__phong1SG3
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__pasted__phong1SG4
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__phong1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__phong1SG1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__phong1SG2
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__phong1SG4
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__phong1SG5
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__phong1SG6
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__pasted__phong1SG7
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__phong1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__phong1SG1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__phong1SG2
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__phong1SG3
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl pasted__phong1SG4
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
+newmtl phong1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd 96320593-metal-texture-background.jpg
+Ni 1.00
+Ks 0.75 0.75 0.75
+Ns 8.91
